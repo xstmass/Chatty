@@ -91,16 +91,33 @@ public class NMSUtil {
             if (clsClientboundPlayerChatPacket == null) {
                 // < 1.19
                 Class<?> clsChatMessageType = NMS_CLASSES.get("ChatMessageType");
-                Object chatMessageType = clsChatMessageType.getMethod("valueOf", String.class).invoke(null, type);
+                Object entityPlayer = player.getClass().getMethod("getHandle").invoke(player);
+                Object playerConnection = resolveField(entityPlayer.getClass(), "b", "playerConnection").get(entityPlayer);
+                Object chatMessageType;
+
+                try {
+                    chatMessageType = clsChatMessageType.getMethod("valueOf", String.class).invoke(null, type);
+                } catch (Throwable ignored) {
+                    chatMessageType = null;
+                }
 
                 Object packetPlayOutChat = null;
                 Class<?> packetPlayOutChatClass = NMS_CLASSES.get("PacketPlayOutChat");
 
+                // Legacy versions (< 1.12)
+                if (chatMessageType == null) {
+                    try {
+                        packetPlayOutChat = packetPlayOutChatClass.getConstructor(clsIChatBaseComponent).newInstance(chatBaseComponent);
+                    } catch (Throwable ignored) {}
+                }
+
                 // Legacy versions (< 1.16)
-                try {
-                    packetPlayOutChat = packetPlayOutChatClass.getConstructor(clsIChatBaseComponent, clsChatMessageType)
-                            .newInstance(chatBaseComponent, chatMessageType);
-                } catch (Throwable ignored) {}
+                if (packetPlayOutChat == null) {
+                    try {
+                        packetPlayOutChat = packetPlayOutChatClass.getConstructor(clsIChatBaseComponent, clsChatMessageType)
+                                .newInstance(chatBaseComponent, chatMessageType);
+                    } catch (Throwable ignored) {}
+                }
 
                 // New versions (>= 1.16)
                 if (packetPlayOutChat == null) {
