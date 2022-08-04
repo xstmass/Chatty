@@ -54,7 +54,8 @@ public class LegacyConverter {
                 finalizeSection();
                 try {
                     this.color = ChatColor.of("#" + hex);
-                } catch (Exception ignored) {}
+                } catch (Exception ignored) {
+                }
                 checkingForHex = false;
                 hex = new StringBuilder();
                 continue;

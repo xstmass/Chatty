@@ -1,9 +1,8 @@
 package ru.mrbrikster.chatty.json;
 
+import lombok.Getter;
 import ru.mrbrikster.chatty.json.fanciful.FancyMessage;
 import ru.mrbrikster.chatty.util.TextUtil;
-
-import lombok.Getter;
 
 public class LegacyMessagePart implements MessagePart {
 

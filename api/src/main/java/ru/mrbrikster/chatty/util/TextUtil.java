@@ -1,10 +1,9 @@
 package ru.mrbrikster.chatty.util;
 
 import com.google.common.base.Preconditions;
+import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.ChatColor;
 import ru.mrbrikster.chatty.json.LegacyConverter;
-
-import lombok.experimental.UtilityClass;
 
 import java.awt.*;
 import java.util.ArrayList;

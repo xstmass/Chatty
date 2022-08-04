@@ -16,7 +16,8 @@ public class FormattedMessage {
 
     private List<MessagePart> messageParts = new ArrayList<>();
 
-    public FormattedMessage() {}
+    public FormattedMessage() {
+    }
 
     public FormattedMessage(String text) {
         this.messageParts.add(new LegacyMessagePart(text));

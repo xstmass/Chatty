@@ -1,12 +1,11 @@
 package ru.mrbrikster.chatty.api.chats;
 
+import lombok.experimental.UtilityClass;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.mrbrikster.chatty.json.FormattedMessage;
-
-import lombok.experimental.UtilityClass;
 
 import java.util.Collection;
 import java.util.function.Predicate;

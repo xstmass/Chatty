@@ -3,6 +3,8 @@ package ru.mrbrikster.chatty.json.fanciful;
 import com.google.common.collect.Iterables;
 import com.google.gson.*;
 import com.google.gson.stream.JsonWriter;
+import lombok.Getter;
+import lombok.SneakyThrows;
 import net.amoebaman.util.ArrayWrapper;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
@@ -12,9 +14,6 @@ import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.entity.Player;
 import ru.mrbrikster.chatty.util.TextUtil;
 import ru.mrbrikster.chatty.util.textapi.NMSUtil;
-
-import lombok.Getter;
-import lombok.SneakyThrows;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -36,16 +35,17 @@ import static ru.mrbrikster.chatty.json.fanciful.TextualComponent.rawText;
 @SuppressWarnings("all")
 public class FancyMessage implements JsonRepresentedObject, Cloneable, Iterable<MessagePart>, ConfigurationSerializable {
 
-    private static JsonParser _stringParser = new JsonParser();
     private static final Gson GSON = new GsonBuilder()
             .disableHtmlEscaping()
             .create();
+    private static JsonParser _stringParser = new JsonParser();
 
     static {
         ConfigurationSerialization.registerClass(FancyMessage.class);
     }
 
-    @Getter private List<MessagePart> messageParts;
+    @Getter
+    private List<MessagePart> messageParts;
     private String jsonString;
     private boolean dirty;
 

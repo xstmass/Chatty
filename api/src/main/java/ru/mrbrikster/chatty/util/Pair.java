@@ -4,8 +4,10 @@ import lombok.Getter;
 
 public class Pair<A, B> {
 
-    @Getter private final A a;
-    @Getter private final B b;
+    @Getter
+    private final A a;
+    @Getter
+    private final B b;
 
     private Pair(A a, B b) {
         this.a = a;

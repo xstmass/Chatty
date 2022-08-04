@@ -19,17 +19,12 @@ public class NMSUtil {
     private static final HashMap<String, Class<?>> NMS_CLASSES = new HashMap<>();
 
     static {
-        NMS_CLASSES.put("IChatBaseComponent", resolveSuitableClass(MINECRAFT + ".IChatBaseComponent",
-                NETWORK + ".chat.IChatBaseComponent", NETWORK + ".chat.IChatBaseComponent", "net.minecraft.util.IChatComponent"));
-        NMS_CLASSES.put("ChatMessageType", resolveSuitableClass(MINECRAFT + ".ChatMessageType",
-                NETWORK + ".chat.ChatMessageType"));
-        NMS_CLASSES.put("IChatBaseComponent$ChatSerializer", resolveSuitableClass(MINECRAFT + ".IChatBaseComponent$ChatSerializer",
-                NETWORK + ".chat.IChatBaseComponent$ChatSerializer", "net.minecraft.util.IChatComponent$Serializer"));
+        NMS_CLASSES.put("IChatBaseComponent", resolveSuitableClass(MINECRAFT + ".IChatBaseComponent", NETWORK + ".chat.IChatBaseComponent", NETWORK + ".chat.IChatBaseComponent", "net.minecraft.util.IChatComponent"));
+        NMS_CLASSES.put("ChatMessageType", resolveSuitableClass(MINECRAFT + ".ChatMessageType", NETWORK + ".chat.ChatMessageType"));
+        NMS_CLASSES.put("IChatBaseComponent$ChatSerializer", resolveSuitableClass(MINECRAFT + ".IChatBaseComponent$ChatSerializer", NETWORK + ".chat.IChatBaseComponent$ChatSerializer", "net.minecraft.util.IChatComponent$Serializer"));
 
-        NMS_CLASSES.put("PacketPlayOutChat", resolveSuitableClass(MINECRAFT + ".PacketPlayOutChat",
-                NETWORK + ".protocol.game.PacketPlayOutChat", NETWORK + ".play.server.S02PacketChat"));
-        NMS_CLASSES.put("Packet", resolveSuitableClass(MINECRAFT + ".Packet",
-                NETWORK + ".protocol.Packet", NETWORK + ".Packet"));
+        NMS_CLASSES.put("PacketPlayOutChat", resolveSuitableClass(MINECRAFT + ".PacketPlayOutChat", NETWORK + ".protocol.game.PacketPlayOutChat", NETWORK + ".play.server.S02PacketChat"));
+        NMS_CLASSES.put("Packet", resolveSuitableClass(MINECRAFT + ".Packet", NETWORK + ".protocol.Packet", NETWORK + ".Packet"));
 
         // Legacy title packets
         NMS_CLASSES.put("PacketPlayOutTitle", resolveSuitableClass(MINECRAFT + ".PacketPlayOutTitle"));
@@ -96,15 +91,13 @@ public class NMSUtil {
 
             // EntityPlayer entityPlayer = ((CraftPlayer) player).getHandle();
             Object entityPlayer = player.getClass().getMethod("getHandle").invoke(player);
-            Object playerConnection = resolveField(entityPlayer.getClass(), "b", "playerConnection").get(entityPlayer);
+            Object playerConnection = resolveField(entityPlayer.getClass(), "b", "playerConnection", "field_71135_a").get(entityPlayer);
 
             Class<?> clsClientboundPlayerChatPacket = NMS_CLASSES.get("ClientboundPlayerChatPacket");
 
             if (clsClientboundPlayerChatPacket == null) {
                 // < 1.19
                 Class<?> clsChatMessageType = NMS_CLASSES.get("ChatMessageType");
-                Object entityPlayer = player.getClass().getMethod("getHandle").invoke(player);
-                Object playerConnection = resolveField(entityPlayer.getClass(), "b", "playerConnection", "field_71135_a").get(entityPlayer);
                 Object chatMessageType;
 
                 try {
